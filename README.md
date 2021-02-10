@@ -1,28 +1,15 @@
-# {{name}}
+# How to reproduce
+```
+git clone git@github.com:aratare-jp/shadow-cljs-require.git
 
-## Run
-
-``` shell
 yarn install
 
-yarn watch
+yarn shadow-cljs server
 ```
 
-## Clean
+Then move on to the dashboard, compile and open the app normally.
 
-``` shell
-yarn clean
+You should see this error popping up in the console:
 ```
-
-## Release
-
-``` shell
-yarn release
+Uncaught (in promise) Module not provided: ./assets/plus.js
 ```
-
-## License
-
-Copyright © 2017 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
