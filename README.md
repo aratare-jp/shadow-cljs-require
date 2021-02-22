@@ -1,28 +1,40 @@
-# {{name}}
+# How to reproduce
+```
+git clone git@github.com:aratare-jp/shadow-cljs-require.git
 
-## Run
-
-``` shell
 yarn install
 
-yarn watch
+yarn shadow-cljs server
 ```
 
-## Clean
+Then move on to the dashboard, compile and open the app normally.
 
-``` shell
-yarn clean
+You should see this error popping up in the console:
+```
+Uncaught (in promise) Module not provided: ./assets/plus.js
 ```
 
-## Release
+# Solution
+As per answerd [here](https://github.com/thheller/shadow-cljs/issues/840#issuecomment-776665299), add the following options to your build:
 
-``` shell
-yarn release
+```clojure
+:js-options
+{:js-provider    :external
+ :external-index "target/index.js"}
 ```
 
-## License
+This project's `shadow-cljs.edn` has been updated to include the above block.
 
-Copyright © 2017 FIXME
+Then run the following command (assuming you already have webpack installed):
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+```bash
+npx webpack --entry target/index.js --output public/js/libs.js
+```
+
+Then inside your index.html, include the newly generated `libs.js`:
+
+```javascript
+<script defer src="/js/libs.js"></script>
+<script defer src="/js/main.js"></script>
+```
+
